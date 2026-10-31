@@ -1,0 +1,22 @@
+name: Runner diagnostic
+on:
+  push:
+    branches:
+      - ci/initial-release-build
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  runner-check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Verify runner starts
+        run: |
+          echo 'GitHub-hosted runner started successfully'
+          uname -a
